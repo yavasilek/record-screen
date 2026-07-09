@@ -8,9 +8,9 @@ from screen_recorder.audio import choose_loopback_microphone, float_block_to_pcm
 def test_microphone_permission_help_mentions_windows_settings():
     help_text = microphone_permission_help()
 
-    assert "Windows Settings" in help_text
-    assert "Microphone" in help_text
-    assert "desktop apps" in help_text
+    assert "Параметры Windows" in help_text
+    assert "Микрофон" in help_text
+    assert "классических приложений" in help_text
 
 
 def test_choose_loopback_microphone_prefers_default_speaker_name():

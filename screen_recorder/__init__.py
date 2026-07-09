@@ -1,2 +1,1 @@
-"""Windows desktop screen recorder."""
-
+"""Запись экрана Windows."""

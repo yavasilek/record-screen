@@ -16,11 +16,11 @@ from screen_recorder.selection import Region
 
 
 def test_format_region_summary_handles_missing_region():
-    assert format_region_summary(None) == "No area selected"
+    assert format_region_summary(None) == "Область не выбрана"
 
 
 def test_format_region_summary_shows_dimensions_and_origin():
-    assert format_region_summary(Region(x=10, y=20, width=640, height=360)) == "640 x 360 at 10,20"
+    assert format_region_summary(Region(x=10, y=20, width=640, height=360)) == "640 x 360, координаты 10,20"
 
 
 def test_recent_recordings_returns_newest_mp4_first(tmp_path):

@@ -28,17 +28,17 @@ class RecorderApp:
         self.recorder = ScreenRecorder(ffmpeg_path)
 
         keyboard.add_hotkey(HOTKEY, lambda: self.actions.put("toggle"))
-        print("Screen Recorder is running.")
-        print(f"Hotkey: {HOTKEY}")
-        print("First press selects a region and starts recording; second press stops it.")
-        print("Use Ctrl+C in this window to exit.")
+        print("Запись экрана запущена.")
+        print(f"Горячая клавиша: {HOTKEY}")
+        print("Первое нажатие выбирает область и запускает запись, второе останавливает её.")
+        print("Для выхода нажмите Ctrl+C в этом окне.")
 
         try:
             while not self.stop_event.is_set():
                 self._handle_next_action()
                 self._report_ffmpeg_exit()
         except KeyboardInterrupt:
-            print("\nExiting...")
+            print("\nВыход...")
         finally:
             keyboard.unhook_all_hotkeys()
             self._stop_recording()
@@ -62,21 +62,21 @@ class RecorderApp:
             self._stop_recording()
             return
 
-        print("Checking microphone access...")
+        print("Проверяю доступ к микрофону...")
         try:
             verify_microphone_access()
         except MicrophoneAccessError as error:
             print(error)
             return
 
-        print("Checking system audio access...")
+        print("Проверяю доступ к системному звуку...")
         try:
             verify_system_audio_access()
         except AudioCaptureError as error:
             print(error)
             return
 
-        print("Select a region with the mouse. Esc cancels selection.")
+        print("Выберите область мышью. Esc отменяет выбор.")
         minimize_console()
         try:
             region = select_region()
@@ -85,7 +85,7 @@ class RecorderApp:
             raise
         if region is None:
             restore_console()
-            print("Selection canceled.")
+            print("Выбор отменён.")
             return
 
         output_path = build_output_path()
@@ -94,7 +94,7 @@ class RecorderApp:
         except Exception:
             restore_console()
             raise
-        print(f"Recording started: {output_path}")
+        print(f"Запись началась: {output_path}")
 
     def _stop_recording(self) -> None:
         if self.recorder is None or not self.recorder.is_recording:
@@ -105,7 +105,7 @@ class RecorderApp:
         finally:
             restore_console()
         if output_path is not None:
-            print(f"Recording stopped: {output_path}")
+            print(f"Запись остановлена: {output_path}")
 
     def _report_ffmpeg_exit(self) -> None:
         if self.recorder is None:
@@ -116,7 +116,7 @@ class RecorderApp:
             return
 
         restore_console()
-        print("FFmpeg stopped before recording finished:")
+        print("FFmpeg остановился до завершения записи:")
         print(error)
         self.recorder.process = None
         time.sleep(0.2)
@@ -125,12 +125,12 @@ class RecorderApp:
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="record-screen",
-        description="Record a selected desktop region with system audio and microphone audio.",
+        description="Запись выбранной области экрана с системным звуком и микрофоном.",
     )
     parser.add_argument(
         "--console",
         action="store_true",
-        help="Run the legacy console hotkey workflow instead of the GUI.",
+        help="Запустить консольный режим с горячей клавишей вместо GUI.",
     )
     return parser.parse_args(argv)
 

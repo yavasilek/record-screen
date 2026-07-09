@@ -1,37 +1,37 @@
-# Record Screen
+# Запись экрана
 
-Windows screen recorder with a Control Center GUI, selectable capture area, system audio, microphone audio, and local FFmpeg.
+Портативная программа для записи экрана Windows с графическим окном управления, выбором области захвата, системным звуком, микрофоном и локальным FFmpeg.
 
-## Run portable release
+## Запуск портативного релиза
 
-Download `RecordScreen.exe` and double-click it.
+Скачайте `RecordScreen.exe` и запустите его двойным щелчком.
 
-Finished files are saved in `recordings` next to `RecordScreen.exe`.
+Готовые видео сохраняются в папку `recordings` рядом с `RecordScreen.exe`.
 
-## Run from source
+## Запуск из исходников
 
-Double-click `RecordScreen.bat`.
+Запустите `RecordScreen.bat` двойным щелчком.
 
-On normal startup, the launcher checks dependencies quietly and opens the GUI through `pythonw.exe`, so the console window does not stay on screen. If you run `RecordScreen.bat --help`, it uses console mode and prints help text.
+При обычном запуске лаунчер тихо проверяет зависимости и открывает интерфейс через `pythonw.exe`, поэтому окно консоли не остаётся на экране. Если запустить `RecordScreen.bat --help`, включится консольный режим со справкой.
 
-## Controls
+## Управление
 
-- `Start`: select an area if needed, then start recording.
-- `Stop`: stop recording and finalize the MP4.
-- `Select Area`: choose a desktop region before recording.
-- `Ctrl+Alt+Shift+R`: global hotkey for Start/Stop.
-- `System audio`: record computer audio.
-- `Microphone`: record the default microphone.
-- `Show cursor`: include the mouse cursor in the video.
+- `Старт`: выбрать область при необходимости и начать запись.
+- `Стоп`: остановить запись и сохранить MP4.
+- `Выбрать область`: выбрать область экрана перед записью.
+- `Ctrl+Alt+Shift+R`: глобальная горячая клавиша для старта и остановки.
+- `Звук системы`: записывать звук компьютера.
+- `Микрофон`: записывать микрофон по умолчанию.
+- `Показывать курсор`: добавлять курсор мыши в видео.
 
-Finished files are saved in `recordings`.
+Готовые видео сохраняются в `recordings`.
 
-## Notes
+## Примечания
 
-The GUI hides itself while selecting and recording so it does not appear in the captured video.
+Окно программы скрывается во время выбора области и записи, чтобы не попасть в видео.
 
-If the selected area has an odd width or height, the recorder trims that dimension by 1 pixel for H.264 compatibility.
+Если выбранная область имеет нечётную ширину или высоту, программа уменьшает этот размер на 1 пиксель для совместимости с H.264.
 
-If microphone access fails, check:
+Если микрофон не открывается, проверьте:
 
-`Windows Settings -> Privacy & security -> Microphone -> Allow desktop apps to access your microphone`.
+`Параметры Windows -> Конфиденциальность и безопасность -> Микрофон -> Разрешить классическим приложениям доступ к микрофону`.

@@ -46,7 +46,7 @@ def ensure_ffmpeg(
     target_dir.mkdir(parents=True, exist_ok=True)
     archive_path = target_dir / "ffmpeg.zip"
 
-    print("FFmpeg не найден локально. Скачиваю portable-сборку...")
+    print("FFmpeg не найден локально. Скачиваю портативную сборку...")
     _download_file(FFMPEG_DOWNLOAD_URL, archive_path)
     _extract_archive(archive_path, target_dir)
     archive_path.unlink(missing_ok=True)

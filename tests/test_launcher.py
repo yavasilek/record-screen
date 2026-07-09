@@ -20,6 +20,7 @@ def test_launcher_help_hides_pip_satisfied_output():
 
     assert completed.returncode == 0
     assert "usage: record-screen" in output
+    assert "Запись выбранной области" in output
     assert "Requirement already satisfied" not in output
 
 

@@ -1,22 +1,28 @@
-# Releases
+# Релизы
+
+## 0.1.4 - 2026-07-09
+
+- Переведены интерфейс, сообщения приложения и документация на русский язык.
+- Обновлены подсказки по микрофону, системному звуку и состояниям записи.
+- Сохранена портативная сборка одним файлом с `RecordScreen.exe`.
 
 ## 0.1.3 - 2026-07-09
 
-- Changed the portable release to a single `RecordScreen.exe` file.
-- Bundled `ffmpeg.exe` into the one-file executable so users no longer need a release folder.
-- Kept recordings portable by saving them next to the executable in `recordings`.
+- Портативный релиз переведён на один файл `RecordScreen.exe`.
+- `ffmpeg.exe` встроен в исполняемый файл, поэтому пользователю больше не нужна папка релиза.
+- Записи остаются портативными и сохраняются рядом с исполняемым файлом в `recordings`.
 
 ## 0.1.2 - 2026-06-17
 
-- Made the Control Center more compact so all controls fit on scaled displays.
-- Reduced the recordings list and details panel height while keeping the recordings panel readable.
+- Окно управления стало компактнее, чтобы элементы помещались на экранах с масштабированием.
+- Уменьшена высота списка записей и панели деталей без потери читаемости.
 
 ## 0.1.1 - 2026-06-17
 
-- Widened the Control Center window so the Last recordings panel stays readable.
-- Added fixed minimum layout sizes for the recording list area.
+- Окно управления стало шире, чтобы панель последних записей оставалась читаемой.
+- Добавлены фиксированные минимальные размеры для области списка записей.
 
 ## 0.1.0 - 2026-06-09
 
-- First portable release candidate.
-- Includes Control Center GUI, selectable region recording, system audio, microphone audio, cursor toggle, and local FFmpeg.
+- Первый кандидат портативного релиза.
+- Включает графическое окно управления, выбор области записи, системный звук, микрофон, переключатель курсора и локальный FFmpeg.

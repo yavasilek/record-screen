@@ -25,16 +25,16 @@ class AudioCapturePaths:
 
 def microphone_permission_help() -> str:
     return (
-        "Could not open the microphone.\n"
-        "Check Windows Settings -> Privacy & security -> Microphone, then allow "
-        "microphone access for desktop apps."
+        "Не удалось открыть микрофон.\n"
+        "Откройте Параметры Windows -> Конфиденциальность и безопасность -> Микрофон, "
+        "затем разрешите доступ к микрофону для классических приложений."
     )
 
 
 def choose_loopback_microphone(microphones: Iterable[object], default_speaker_name: str) -> object:
     loopbacks = [mic for mic in microphones if getattr(mic, "isloopback", False)]
     if not loopbacks:
-        raise AudioCaptureError("No WASAPI loopback device was found for system audio.")
+        raise AudioCaptureError("Не найдено WASAPI loopback-устройство для записи системного звука.")
 
     for mic in loopbacks:
         if getattr(mic, "name", "") == default_speaker_name:
@@ -79,7 +79,7 @@ def verify_system_audio_access(sample_rate: int = 48_000) -> None:
     try:
         _probe_device(loopback, sample_rate=sample_rate)
     except Exception as exc:
-        raise AudioCaptureError(f"Could not open system audio through WASAPI loopback.\n\n{exc}") from exc
+        raise AudioCaptureError(f"Не удалось открыть системный звук через WASAPI loopback.\n\n{exc}") from exc
 
 
 def _probe_device(device: object, sample_rate: int) -> None:
@@ -105,7 +105,7 @@ class AudioCapture:
         import soundcard as sc
 
         if self._threads:
-            raise AudioCaptureError("Audio recording is already running.")
+            raise AudioCaptureError("Запись аудио уже идёт.")
 
         self.paths = AudioCapturePaths(
             system=output_path.with_suffix(".system.wav") if system_audio else None,

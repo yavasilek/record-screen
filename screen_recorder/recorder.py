@@ -134,7 +134,7 @@ class ScreenRecorder:
         options: RecordingOptions | None = None,
     ) -> Path:
         if self.is_recording:
-            raise RuntimeError("Recording is already running.")
+            raise RuntimeError("Запись уже идёт.")
 
         options = options or RecordingOptions()
         output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -211,9 +211,9 @@ class ScreenRecorder:
             return str(exc)
 
         if self.log_path is None or not self.log_path.exists():
-            return "FFmpeg exited before recording was stopped."
+            return "FFmpeg завершился до остановки записи."
         log_text = self.log_path.read_text(encoding="utf-8", errors="replace").strip()
-        return log_text or "FFmpeg exited before recording was stopped."
+        return log_text or "FFmpeg завершился до остановки записи."
 
     def _mux_recording(self, video_path: Path, audio_paths: AudioCapturePaths, output_path: Path) -> None:
         command = build_mux_command(
@@ -226,7 +226,7 @@ class ScreenRecorder:
         completed = subprocess.run(command, capture_output=True, text=True, check=False)
         if completed.returncode != 0:
             details = completed.stderr.strip() or completed.stdout.strip()
-            raise RuntimeError(f"Could not finalize the recording.\n\n{details}")
+            raise RuntimeError(f"Не удалось сохранить итоговую запись.\n\n{details}")
 
     def _cleanup_temporary_files(self, video_path: Path, audio_paths: AudioCapturePaths) -> None:
         for path in (video_path, audio_paths.system, audio_paths.microphone):
