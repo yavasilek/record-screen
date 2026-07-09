@@ -9,5 +9,6 @@ build/
 dist/
 recordings/
 tools/ffmpeg/
+RecordScreen.settings.json
 
 *.log

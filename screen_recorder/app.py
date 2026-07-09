@@ -7,10 +7,10 @@ import threading
 import time
 
 from .audio import AudioCaptureError, MicrophoneAccessError, verify_microphone_access, verify_system_audio_access
-from .config import HOTKEY
 from .ffmpeg_manager import ensure_ffmpeg
 from .recorder import ScreenRecorder, build_output_path
 from .selection import select_region
+from .settings import load_settings
 from .windows import enable_dpi_awareness, minimize_console, restore_console
 from .gui import RecorderGui
 
@@ -24,12 +24,13 @@ class RecorderApp:
     def run(self) -> int:
         import keyboard
 
+        settings = load_settings()
         ffmpeg_path = ensure_ffmpeg()
         self.recorder = ScreenRecorder(ffmpeg_path)
 
-        keyboard.add_hotkey(HOTKEY, lambda: self.actions.put("toggle"))
+        keyboard.add_hotkey(settings.hotkey, lambda: self.actions.put("toggle"))
         print("Запись экрана запущена.")
-        print(f"Горячая клавиша: {HOTKEY}")
+        print(f"Горячая клавиша: {settings.hotkey}")
         print("Первое нажатие выбирает область и запускает запись, второе останавливает её.")
         print("Для выхода нажмите Ctrl+C в этом окне.")
 

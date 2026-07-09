@@ -1,3 +1,5 @@
 keyboard>=0.13.5
 numpy>=2.0
+pillow>=10.0
+pystray>=0.19
 soundcard>=0.4.6

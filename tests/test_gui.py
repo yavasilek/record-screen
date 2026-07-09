@@ -6,6 +6,7 @@ from screen_recorder.gui import (
     RecorderStatus,
     RECORDINGS_LIST_VISIBLE_ROWS,
     RECORDINGS_PANEL_MIN_WIDTH,
+    TRAY_BEHAVIOR_LABELS,
     WINDOW_GEOMETRY,
     WINDOW_MIN_HEIGHT,
     WINDOW_MIN_WIDTH,
@@ -13,6 +14,12 @@ from screen_recorder.gui import (
     recent_recordings,
 )
 from screen_recorder.selection import Region
+from screen_recorder.settings import (
+    TRAY_BEHAVIOR_CLOSE,
+    TRAY_BEHAVIOR_CLOSE_AND_MINIMIZE,
+    TRAY_BEHAVIOR_MINIMIZE,
+    TRAY_BEHAVIOR_NONE,
+)
 
 
 def test_format_region_summary_handles_missing_region():
@@ -52,7 +59,16 @@ def test_gui_layout_keeps_recordings_panel_readable():
 def test_gui_layout_stays_compact_for_scaled_displays():
     _, height = WINDOW_GEOMETRY.split("x", maxsplit=1)
 
-    assert int(height) <= 540
-    assert WINDOW_MIN_HEIGHT <= 520
-    assert RECORDINGS_LIST_VISIBLE_ROWS <= 7
+    assert int(height) <= 620
+    assert WINDOW_MIN_HEIGHT <= 580
+    assert RECORDINGS_LIST_VISIBLE_ROWS <= 6
     assert DETAILS_TEXT_VISIBLE_ROWS <= 3
+
+
+def test_tray_behavior_labels_cover_available_options():
+    assert set(TRAY_BEHAVIOR_LABELS) == {
+        TRAY_BEHAVIOR_NONE,
+        TRAY_BEHAVIOR_CLOSE,
+        TRAY_BEHAVIOR_MINIMIZE,
+        TRAY_BEHAVIOR_CLOSE_AND_MINIMIZE,
+    }
