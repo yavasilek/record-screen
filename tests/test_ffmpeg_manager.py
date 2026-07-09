@@ -17,3 +17,13 @@ def test_find_local_ffmpeg_finds_nested_portable_build(tmp_path):
     ffmpeg.write_text("", encoding="utf-8")
 
     assert find_local_ffmpeg(tmp_path) == ffmpeg
+
+
+def test_find_local_ffmpeg_finds_bundled_onefile_binary(tmp_path):
+    project_root = tmp_path / "app"
+    bundle_root = tmp_path / "_MEI12345"
+    ffmpeg = bundle_root / "tools" / "ffmpeg" / "bin" / "ffmpeg.exe"
+    ffmpeg.parent.mkdir(parents=True)
+    ffmpeg.write_text("", encoding="utf-8")
+
+    assert find_local_ffmpeg(project_root, bundle_root) == ffmpeg

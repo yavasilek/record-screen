@@ -15,6 +15,18 @@ def test_detect_project_root_uses_executable_parent_when_frozen():
     assert config.detect_project_root(frozen=True, executable=executable) == executable.parent
 
 
+def test_detect_bundle_root_uses_pyinstaller_meipass_when_frozen():
+    bundle_root = Path("C:/Users/example/AppData/Local/Temp/_MEI12345")
+
+    assert config.detect_bundle_root(frozen=True, meipass=bundle_root) == bundle_root
+
+
+def test_detect_bundle_root_is_empty_outside_frozen_app():
+    bundle_root = Path("C:/Users/example/AppData/Local/Temp/_MEI12345")
+
+    assert config.detect_bundle_root(frozen=False, meipass=bundle_root) is None
+
+
 def test_default_recording_settings():
     assert config.HOTKEY == "ctrl+alt+shift+r"
     assert config.DEFAULT_FPS == 20

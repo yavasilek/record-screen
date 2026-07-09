@@ -2,7 +2,13 @@
 
 Windows screen recorder with a Control Center GUI, selectable capture area, system audio, microphone audio, and local FFmpeg.
 
-## Run
+## Run portable release
+
+Download `RecordScreen.exe` and double-click it.
+
+Finished files are saved in `recordings` next to `RecordScreen.exe`.
+
+## Run from source
 
 Double-click `RecordScreen.bat`.
 

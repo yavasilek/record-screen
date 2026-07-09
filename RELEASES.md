@@ -1,5 +1,11 @@
 # Releases
 
+## 0.1.3 - 2026-07-09
+
+- Changed the portable release to a single `RecordScreen.exe` file.
+- Bundled `ffmpeg.exe` into the one-file executable so users no longer need a release folder.
+- Kept recordings portable by saving them next to the executable in `recordings`.
+
 ## 0.1.2 - 2026-06-17
 
 - Made the Control Center more compact so all controls fit on scaled displays.

@@ -5,15 +5,28 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-from .config import FFMPEG_DIR, FFMPEG_DOWNLOAD_URL, PROJECT_ROOT
+from .config import BUNDLE_ROOT, FFMPEG_DIR, FFMPEG_DOWNLOAD_URL, PROJECT_ROOT
 
 
-def find_local_ffmpeg(project_root: Path = PROJECT_ROOT) -> Path | None:
-    standard_path = project_root / "tools" / "ffmpeg" / "bin" / "ffmpeg.exe"
+def find_local_ffmpeg(
+    project_root: Path = PROJECT_ROOT,
+    bundle_root: Path | None = BUNDLE_ROOT,
+) -> Path | None:
+    for root in (project_root, bundle_root):
+        if root is None:
+            continue
+        ffmpeg = _find_ffmpeg_under(root)
+        if ffmpeg is not None:
+            return ffmpeg
+    return None
+
+
+def _find_ffmpeg_under(root: Path) -> Path | None:
+    standard_path = root / "tools" / "ffmpeg" / "bin" / "ffmpeg.exe"
     if standard_path.exists():
         return standard_path
 
-    ffmpeg_dir = project_root / "tools" / "ffmpeg"
+    ffmpeg_dir = root / "tools" / "ffmpeg"
     if not ffmpeg_dir.exists():
         return None
 
@@ -21,8 +34,11 @@ def find_local_ffmpeg(project_root: Path = PROJECT_ROOT) -> Path | None:
     return matches[0] if matches else None
 
 
-def ensure_ffmpeg(project_root: Path = PROJECT_ROOT) -> Path:
-    existing = find_local_ffmpeg(project_root)
+def ensure_ffmpeg(
+    project_root: Path = PROJECT_ROOT,
+    bundle_root: Path | None = BUNDLE_ROOT,
+) -> Path:
+    existing = find_local_ffmpeg(project_root, bundle_root)
     if existing is not None:
         return existing
 
@@ -49,4 +65,3 @@ def _download_file(url: str, destination: Path) -> None:
 def _extract_archive(archive_path: Path, target_dir: Path = FFMPEG_DIR) -> None:
     with zipfile.ZipFile(archive_path) as archive:
         archive.extractall(target_dir)
-

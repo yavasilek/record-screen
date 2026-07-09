@@ -39,6 +39,16 @@ $ReleaseRoot = Join-Path $ProjectRoot "dist\$ReleaseName"
 $WorkPath = Join-Path $ProjectRoot "build\pyinstaller"
 $SpecPath = Join-Path $ProjectRoot "build\spec"
 $VersionFile = Join-Path $ProjectRoot "VERSION"
+$FfmpegRoot = Join-Path $ProjectRoot "tools\ffmpeg"
+$FfmpegCandidate = Get-ChildItem -Path $FfmpegRoot -Recurse -Filter "ffmpeg.exe" -File -ErrorAction SilentlyContinue |
+    Sort-Object FullName |
+    Select-Object -First 1
+
+if (-not $FfmpegCandidate) {
+    throw "Local ffmpeg.exe not found. Run RecordScreen.bat once before building."
+}
+
+$FfmpegBinary = "$($FfmpegCandidate.FullName);tools\ffmpeg\bin"
 
 Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $ReleaseRoot
 New-Item -ItemType Directory -Force -Path $ReleaseRoot, $WorkPath, $SpecPath | Out-Null
@@ -46,12 +56,14 @@ New-Item -ItemType Directory -Force -Path $ReleaseRoot, $WorkPath, $SpecPath | O
 & $VenvPython -m PyInstaller `
     --noconfirm `
     --clean `
+    --onefile `
     --windowed `
     --name RecordScreen `
     --distpath $ReleaseRoot `
     --workpath $WorkPath `
     --specpath $SpecPath `
     --add-data "$VersionFile;." `
+    --add-binary $FfmpegBinary `
     --hidden-import soundcard.mediafoundation `
     --hidden-import cffi `
     record_screen_gui.py
@@ -60,24 +72,15 @@ if ($LASTEXITCODE -ne 0) {
     throw "PyInstaller build failed"
 }
 
-$AppDir = Join-Path $ReleaseRoot "RecordScreen"
-Copy-Item -Recurse -Force (Join-Path $ProjectRoot "tools") $AppDir
-Copy-Item -Force (Join-Path $ProjectRoot "README.md") $AppDir
-Copy-Item -Force (Join-Path $ProjectRoot "VERSION") $AppDir
-Copy-Item -Force (Join-Path $ProjectRoot "RELEASES.md") $AppDir
-
-$LaunchBat = Join-Path $AppDir "RecordScreen.bat"
-@"
-@echo off
-setlocal
-cd /d "%~dp0"
-start "" "%~dp0RecordScreen.exe"
-"@ | Set-Content -Encoding ASCII $LaunchBat
+$ExePath = Join-Path $ReleaseRoot "RecordScreen.exe"
+if (-not (Test-Path $ExePath)) {
+    throw "Portable executable was not created"
+}
 
 $ZipPath = Join-Path $ProjectRoot "dist\$ReleaseName.zip"
 Remove-Item -Force -ErrorAction SilentlyContinue $ZipPath
-Compress-Archive -Path $AppDir -DestinationPath $ZipPath
+Compress-Archive -Path $ExePath -DestinationPath $ZipPath
 
 Write-Host "Portable release created:"
-Write-Host $AppDir
+Write-Host $ExePath
 Write-Host $ZipPath
