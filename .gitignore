@@ -12,3 +12,4 @@ tools/ffmpeg/
 RecordScreen.settings.json
 
 *.log
+node_modules/
