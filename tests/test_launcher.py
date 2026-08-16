@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import subprocess
+import sys
 from pathlib import Path
 
+import pytest
 
+
+@pytest.mark.skipif(sys.platform != "win32", reason="requires cmd.exe")
 def test_launcher_help_hides_pip_satisfied_output():
     project_root = Path(__file__).resolve().parents[1]
     completed = subprocess.run(

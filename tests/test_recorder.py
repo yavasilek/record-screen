@@ -12,14 +12,14 @@ def test_build_video_capture_command_records_desktop_region_without_audio():
         fps=20,
     )
 
-    assert command[:2] == ["tools\\ffmpeg\\bin\\ffmpeg.exe", "-y"]
+    assert command[:2] == [str(Path("tools/ffmpeg/bin/ffmpeg.exe")), "-y"]
     assert "gdigrab" in command
     assert "-offset_x" in command
     assert command[command.index("-offset_x") + 1] == "10"
     assert command[command.index("-offset_y") + 1] == "20"
     assert command[command.index("-video_size") + 1] == "640x360"
     assert "wasapi" not in command
-    assert command[-1] == "recordings\\out.video.mp4"
+    assert command[-1] == str(Path("recordings/out.video.mp4"))
 
 
 def test_build_video_capture_command_trims_odd_dimensions_for_h264():
@@ -54,13 +54,13 @@ def test_build_mux_command_mixes_system_and_microphone_audio():
         output_path=Path("recordings/out.mp4"),
     )
 
-    assert command[:2] == ["tools\\ffmpeg\\bin\\ffmpeg.exe", "-y"]
+    assert command[:2] == [str(Path("tools/ffmpeg/bin/ffmpeg.exe")), "-y"]
     assert command.count("-i") == 3
-    assert "recordings\\out.video.mp4" in command
-    assert "recordings\\out.system.wav" in command
-    assert "recordings\\out.microphone.wav" in command
+    assert str(Path("recordings/out.video.mp4")) in command
+    assert str(Path("recordings/out.system.wav")) in command
+    assert str(Path("recordings/out.microphone.wav")) in command
     assert any("amix=inputs=2:duration=longest:dropout_transition=0" in part for part in command)
-    assert command[-1] == "recordings\\out.mp4"
+    assert command[-1] == str(Path("recordings/out.mp4"))
 
 
 def test_build_mux_command_supports_system_audio_only():
@@ -73,9 +73,9 @@ def test_build_mux_command_supports_system_audio_only():
     )
 
     assert command.count("-i") == 2
-    assert "recordings\\out.system.wav" in command
+    assert str(Path("recordings/out.system.wav")) in command
     assert "-filter_complex" not in command
-    assert command[-1] == "recordings\\out.mp4"
+    assert command[-1] == str(Path("recordings/out.mp4"))
 
 
 def test_build_mux_command_supports_video_only_output():
@@ -90,4 +90,4 @@ def test_build_mux_command_supports_video_only_output():
     assert command.count("-i") == 1
     assert "-filter_complex" not in command
     assert "-c:a" not in command
-    assert command[-1] == "recordings\\out.mp4"
+    assert command[-1] == str(Path("recordings/out.mp4"))

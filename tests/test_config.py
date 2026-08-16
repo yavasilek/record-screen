@@ -9,14 +9,14 @@ def test_default_paths_are_project_local():
     assert config.TOOLS_DIR == config.PROJECT_ROOT / "tools"
 
 
-def test_detect_project_root_uses_executable_parent_when_frozen():
-    executable = Path("C:/portable/RecordScreen/RecordScreen.exe")
+def test_detect_project_root_uses_executable_parent_when_frozen(tmp_path: Path):
+    executable = tmp_path / "portable" / "RecordScreen" / "RecordScreen.exe"
 
     assert config.detect_project_root(frozen=True, executable=executable) == executable.parent
 
 
-def test_detect_bundle_root_uses_pyinstaller_meipass_when_frozen():
-    bundle_root = Path("C:/Users/example/AppData/Local/Temp/_MEI12345")
+def test_detect_bundle_root_uses_pyinstaller_meipass_when_frozen(tmp_path: Path):
+    bundle_root = tmp_path / "_MEI12345"
 
     assert config.detect_bundle_root(frozen=True, meipass=bundle_root) == bundle_root
 
