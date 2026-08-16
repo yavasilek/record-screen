@@ -6,6 +6,7 @@
 Цель:
   Provide a deterministic inventory of canonical intent tree task files without changing current backlog compatibility.
 WorkItems:
+  - add-cross-platform-ci: intent/system/runtime/work/add-cross-platform-ci.work.bvc
   - integrate-workgraph-codex: intent/system/runtime/work/integrate-workgraph-codex.work.bvc
 
 Метки:
