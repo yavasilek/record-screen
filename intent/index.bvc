@@ -8,6 +8,7 @@
 WorkItems:
   - add-cross-platform-ci: intent/system/runtime/work/add-cross-platform-ci.work.bvc
   - integrate-workgraph-codex: intent/system/runtime/work/integrate-workgraph-codex.work.bvc
+  - update-github-actions-node24: intent/system/runtime/work/update-github-actions-node24.work.bvc
 
 Метки:
   atom.profile: trace

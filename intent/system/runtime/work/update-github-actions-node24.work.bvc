@@ -1,0 +1,63 @@
+#Задача_update_github_actions_node24<[
+Базис:
+  The successful post-merge CI run warns that actions/checkout@v4 and actions/setup-python@v5 target deprecated Node.js 20.
+Вектор:
+  Verify the current major releases from the official actions repositories and update only the workflow action references.
+  Re-run local tests and Work Graph doctor, then publish through CI and merge only after all matrix jobs succeed.
+Цель:
+  Remove GitHub Actions Node.js 20 deprecation warnings while preserving the existing Ubuntu/Windows and Python 3.11/3.13 test matrix.
+Проверки:
+  .venv\Scripts\python.exe -m pytest -q
+  npm run workgraph:doctor
+  GitHub Actions matrix succeeds without Node.js 20 deprecation annotations
+Анализ:
+  Зачем:
+  The successful post-merge CI run warns that actions/checkout@v4 and actions/setup-python@v5 target deprecated Node.js 20.
+  Контекст: Verify the current major releases from the official actions repositories and update only the workflow action references.
+  Когда:
+  Можно начинать, когда оператор перевёл задачу в ready.
+  Готово, когда:
+  Remove GitHub Actions Node.js 20 deprecation warnings while preserving the existing Ubuntu/Windows and Python 3.11/3.13 test matrix.
+Решение:
+  Вердикт:
+  полезно
+  Можно брать в работу после перевода в ready.
+
+Метки:
+  work.closed_at: 2026-08-16T17:32:06.380Z
+  work.write.run_id: mcp-claim-update-github-actions-node24-1786901354426
+  atom.profile: work_item
+  migration.strategy: rebuild
+  trace.status: pending
+  work.analysis.at: 2026-08-16T17:29:14.371Z
+  work.analysis.source: create_work_item
+  work.decision.at: 2026-08-16T17:29:14.371Z
+  work.decision.verdict: useful
+  work.department: engineering
+  work.id: update-github-actions-node24
+  work.item_kind: task
+  work.next_action: Verify official action releases, update workflow references, and validate locally.
+  work.owner_role: agent
+  work.pipeline_stage: decided
+  work.priority: medium
+  work.risk: low
+  work.status: done
+  work.target_files: .github/workflows/tests.yml
+  work.title: Update GitHub Actions to Node 24 releases
+  work.updated_by: workgraph-mcp
+  work.write.at: 2026-08-16T17:32:06.380Z
+  work.write.operation: complete
+
+Свидетельства:
+  - Starting the narrow workflow-only compatibility update after the successful PR #2 merge.
+  - Official GitHub releases verified on 2026-08-16: actions/checkout v7.0.1 and actions/setup-python v7.0.0; workflow now follows their v7 major tags.
+  - Windows local test suite after the workflow-only update: 36 passed in 2.07s.
+  - {"type":"test","command":".venv\\Scripts\\python.exe -m pytest -q","exitCode":0,"status":"succeeded","taskId":"update-github-actions-node24","cmd":".venv\\Scripts\\python.exe -m pytest -q","summary":".venv\\Scripts\\python.exe -m pytest -q exitCode=0"}
+  - Work Graph doctor after the update: ok, 0 errors; lint warnings are non-blocking metadata quality warnings.
+  - {"type":"test","command":"npm run workgraph:doctor","exitCode":0,"status":"succeeded","taskId":"update-github-actions-node24","cmd":"npm run workgraph:doctor","summary":"npm run workgraph:doctor exitCode=0"}
+  - GitHub Actions push run 31961798300: Ubuntu/Windows with Python 3.11/3.13 all succeeded using Actions v7; no Node.js 20 deprecation annotations were reported.
+  - {"type":"test","command":"GitHub Actions push run 31961798300","exitCode":0,"status":"succeeded","taskId":"update-github-actions-node24","cmd":"GitHub Actions push run 31961798300","summary":"GitHub Actions push run 31961798300 exitCode=0"}
+  - GitHub Actions pull_request run 31961810784: all four matrix jobs succeeded without Node.js 20 deprecation annotations.
+  - {"type":"test","command":"GitHub Actions pull_request run 31961810784","exitCode":0,"status":"succeeded","taskId":"update-github-actions-node24","cmd":"GitHub Actions pull_request run 31961810784","summary":"GitHub Actions pull_request run 31961810784 exitCode=0"}
+  - Actions v7 is validated locally and by both GitHub push and pull_request matrices; all eight jobs passed with the Node.js 20 warnings removed.
+]>
