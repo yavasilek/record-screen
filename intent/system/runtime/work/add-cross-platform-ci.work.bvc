@@ -1,0 +1,65 @@
+#Задача_add_cross_platform_ci<[
+Базис:
+  The handed-off commit 71f4b2d is unavailable locally and on GitHub.
+  The repository currently has no GitHub Actions workflow.
+Вектор:
+  Выполнить задачу с evidence-driven workflow.
+Цель:
+  Run the complete pytest suite on Ubuntu and Windows with Python 3.11 and 3.13.
+  Keep launcher path assertions portable across operating systems.
+Проверки:
+  .venv\Scripts\python.exe -m pytest -q
+  Linux pytest run when WSL is available
+  GitHub Actions matrix passes for Ubuntu/Windows and Python 3.11/3.13
+Анализ:
+  Зачем:
+  The handed-off commit 71f4b2d is unavailable locally and on GitHub.
+  Контекст: The repository currently has no GitHub Actions workflow.
+  Когда:
+  Можно начинать, когда оператор перевёл задачу в ready.
+  Готово, когда:
+  Run the complete pytest suite on Ubuntu and Windows with Python 3.11 and 3.13.
+Решение:
+  Вердикт:
+  полезно
+  Можно брать в работу после перевода в ready.
+
+Метки:
+  work.closed_at: 2026-08-16T00:25:11.672Z
+  work.write.run_id: mcp-claim-add-cross-platform-ci-1786839535328
+  atom.profile: work_item
+  migration.strategy: rebuild
+  trace.status: pending
+  work.analysis.at: 2026-08-16T00:18:55.235Z
+  work.analysis.source: create_work_item
+  work.decision.at: 2026-08-16T00:18:55.235Z
+  work.decision.verdict: useful
+  work.department: engineering
+  work.id: add-cross-platform-ci
+  work.item_kind: task
+  work.next_action: Inspect current launcher tests and reconstruct the smallest equivalent CI/test change.
+  work.owner_role: agent
+  work.pipeline_stage: decided
+  work.priority: medium
+  work.risk: low
+  work.status: done
+  work.target_files: .github/workflows/tests.yml, tests/test_launcher.py
+  work.title: Add cross-platform test CI
+  work.updated_by: workgraph-mcp
+  work.write.at: 2026-08-16T00:25:11.673Z
+  work.write.operation: complete
+
+Свидетельства:
+  - Reconstructing the unavailable cross-platform CI commit on a clean branch from origin/main.
+  - Windows: C:\Users\yavasilek\Documents\record-screen\.venv\Scripts\python.exe -m pytest -q in clean CI worktree -> 36 passed in 33.05s.
+  - {"type":"test","command":"C:\\Users\\yavasilek\\Documents\\record-screen\\.venv\\Scripts\\python.exe -m pytest -q","exitCode":0,"status":"succeeded","taskId":"add-cross-platform-ci","cmd":"C:\\Users\\yavasilek\\Documents\\record-screen\\.venv\\Scripts\\python.exe -m pytest -q","summary":"C:\\Users\\yavasilek\\Documents\\record-screen\\.venv\\Scripts\\python.exe -m pytest -q exitCode=0"}
+  - Linux local check unavailable because WSL is not installed; GitHub Actions Ubuntu matrix remains the required verification.
+  - Windows after tmp_path normalization: pytest -q -> 36 passed in 1.93s.
+  - {"type":"test","command":"pytest -q after tmp_path normalization","exitCode":0,"status":"succeeded","taskId":"add-cross-platform-ci","cmd":"pytest -q after tmp_path normalization","summary":"pytest -q after tmp_path normalization exitCode=0"}
+  - Initial Ubuntu run failed only in tests/test_config.py because Windows drive-style fixtures were resolved under the Linux checkout; replaced those fixtures with absolute pytest tmp_path values.
+  - GitHub Actions pull_request run 31917112585 on 4edf28f: Ubuntu 3.11, Ubuntu 3.13, Windows 3.11, and Windows 3.13 all succeeded.
+  - {"type":"test","command":"GitHub Actions pull_request run 31917112585","exitCode":0,"status":"succeeded","taskId":"add-cross-platform-ci","cmd":"GitHub Actions pull_request run 31917112585","summary":"GitHub Actions pull_request run 31917112585 exitCode=0"}
+  - GitHub Actions push run 31917111146 on 4edf28f: all four matrix jobs succeeded.
+  - {"type":"test","command":"GitHub Actions push run 31917111146","exitCode":0,"status":"succeeded","taskId":"add-cross-platform-ci","cmd":"GitHub Actions push run 31917111146","summary":"GitHub Actions push run 31917111146 exitCode=0"}
+  - PR #1 is open as draft at https://github.com/yavasilek/record-screen/pull/1; commit 4edf28f passed all four jobs in both pull_request run 31917112585 and push run 31917111146.
+]>

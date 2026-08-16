@@ -1,0 +1,8 @@
+{
+  "schema": "workgraph.project.config.v2",
+  "projectRoot": "C:\\Users\\yavasilek\\Documents\\record-screen",
+  "projectId": "record-screen",
+  "label": "RecordScreen",
+  "uiPort": 4196,
+  "createdAt": "2026-08-03T23:53:06.785Z"
+}
